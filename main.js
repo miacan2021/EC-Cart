@@ -63,9 +63,9 @@ const cart = (e) => {
                 li.innerHTML = `
                 <img src = img/${itemImg}.jpg>
                 <p>${itemName}</p>
+                <p>$ ${itemPrice}<p>
                 <p class='itemN'>x${itemNum}</p>
-                <p>${itemPrice}<p>
-                <button class='remove'> X </button>
+                <button class='remove btn btn-light'>Delete</button>
             `;
             total.before(li);
             cartItem[item].num = itemNum;
@@ -85,9 +85,9 @@ const del = () => {
         btn.addEventListener('click', (e) => {
             totalCost();
             warning();
-            e.path[2].remove();
+            e.path[1].remove();
             for (let item in cartItem){
-                if(cartItem[item].name == e.path[2].childNodes[3].textContent)
+                if(cartItem[item].name == e.path[1].childNodes[3].textContent)
                 {
                     cartItem[item].num = 0;
             }
