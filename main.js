@@ -15,9 +15,9 @@ class Product {
         this.num = num;
     }
 }
-const product1 = new Product('product5', 'Product1', 110, 'texttext', 0);
-const product2 = new Product('product2', 'Product2', 170, 'texttext', 0);
-const product3 = new Product('product3', 'Product3', 120, 'texttext', 0);
+const product1 = new Product('product5', 'Product1', 110, 'texttext from js obj', 0);
+const product2 = new Product('product2', 'Product2', 170, 'texttext sample text', 0);
+const product3 = new Product('product3', 'Product3', 120, 'texttext watch detail', 0);
 
 let cartItem = {
     product1,
@@ -48,8 +48,6 @@ for (item in cartItem) {
 
 const orders = document.querySelectorAll('form');
 
-
-
 const cart = (e) => {
     const name = e.path[0].childNodes[3].childNodes[1].textContent;
     for (let item in cartItem) {
@@ -69,7 +67,7 @@ const cart = (e) => {
                 <p>${itemPrice}<p>
                 <button class='remove'> X </button>
             `;
-            cartUl.appendChild(li);
+            total.before(li);
             cartItem[item].num = itemNum;
             }else{
                 itemNum = e.target[0].value * 1;
@@ -81,15 +79,16 @@ const cart = (e) => {
     }
 }
 
-const remove = (e) => {
+const del = () => {
     const removeBtns = document.querySelectorAll('.remove');
     removeBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
+            totalCost();
             e.path[2].remove();
             for (let item in cartItem){
                 if(cartItem[item].name == e.path[2].childNodes[3].textContent)
                 {
-                    cartItem[item].num = 0
+                    cartItem[item].num = 0;
             }
             }
         });
@@ -101,12 +100,10 @@ const count = () => {
     for (let item in cartItem){
         count += cartItem[item].num;
     }
-    remove()
-    console.log(count);
     return count;
 }
 
-const warning = (e) => {
+const warning= () => {
     const createTitle = `You added ${count()} items.`;
     orderTitle.textContent = createTitle;
     const cartText = `SHOPPING CART [ ${count()}items ]`;
@@ -118,12 +115,23 @@ const warning = (e) => {
     })
 }
 
+const totalCost = () =>{
+    del();
+    let totalNum = 0;
+    for (let item in cartItem){
+       totalNum += cartItem[item].num * cartItem[item].price;
+    }
+    const totalShow = `Total: $ ${totalNum}`;
+    total.textContent = totalShow;
+}
+
 const ordered = (e) => {
     e.preventDefault();
     cart(e);
-    remove(e)
     count();
-    warning(e);
+    del();
+    warning();
+    totalCost();
 }
 orders.forEach(order => {
     order.addEventListener('submit', ordered);
