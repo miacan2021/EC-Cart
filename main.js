@@ -84,6 +84,7 @@ const del = () => {
     removeBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             totalCost();
+            warning();
             e.path[2].remove();
             for (let item in cartItem){
                 if(cartItem[item].name == e.path[2].childNodes[3].textContent)
@@ -106,7 +107,7 @@ const count = () => {
 const warning= () => {
     const createTitle = `You added ${count()} items.`;
     orderTitle.textContent = createTitle;
-    const cartText = `SHOPPING CART [ ${count()}items ]`;
+    const cartText = `SHOPPING CART [${count()}items ]`;
     cartTitle.textContent = cartText;
     navCart.forEach(cart => {
         const navCartText = `Cart (${count()})`;
