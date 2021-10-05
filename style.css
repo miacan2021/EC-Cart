@@ -1,0 +1,18 @@
+*{
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.title{
+    color: #A8A194;
+    margin: 40px;
+}
+
+.img-thumb{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.img-thumb img{ 
+height: auto;
+width: 100px;
+}
