@@ -70,7 +70,7 @@ const cart = (e) => {
             total.before(li);
             cartItem[item].num = itemNum;
             }else{
-                itemNum = e.target[0].value * 1;
+                itemNum =  cartItem[item].num + e.target[0].value * 1;
                 const itemN = document.querySelector('.itemN');
                 itemN.textContent = `x${itemNum}`;
                 cartItem[item].num = itemNum;
