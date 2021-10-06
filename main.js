@@ -64,20 +64,32 @@ const cart = (e) => {
                 <img src = img/${itemImg}.jpg>
                 <p>${itemName}</p>
                 <p>$ ${itemPrice}<p>
-                <p class='itemN'>x${itemNum}</p>
+                <p>x${itemNum}</p>
                 <button class='remove btn btn-light'>Delete</button>
             `;
+            
             total.before(li);
             cartItem[item].num = itemNum;
             }else{
-                itemNum =  cartItem[item].num + e.target[0].value * 1;
-                const itemN = document.querySelector('.itemN');
-                itemN.textContent = `x${itemNum}`;
+                itemNum = cartItem[item].num + e.target[0].value * 1;
                 cartItem[item].num = itemNum;
+                updateCart(e);
             }
         }
     }
 }
+const updateCart = (e) => {
+    const name = e.path[0].childNodes[3].childNodes[1].textContent;
+    const itemCart = document.querySelectorAll('.img-thumb');
+    for (let item in cartItem) {
+   itemCart.forEach(val => {
+        if (val.childNodes[3].textContent === name && cartItem[item].name === name) {
+            val.childNodes[7].innerText= `x${cartItem[item].num}`;
+        }
+    })
+}
+}
+
 
 const del = (e) => {
     const removeBtns = document.querySelectorAll('.remove');
