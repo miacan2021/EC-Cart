@@ -77,18 +77,17 @@ const cart = (e) => {
             }
         }
     }
-    e.target[0].value　= 1;
 }
 
-const del = () => {
+const del = (e) => {
     const removeBtns = document.querySelectorAll('.remove');
     removeBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            totalCost();
-            warning();
-            e.path[1].remove();
+        btn.addEventListener('click', (event) => {
+            totalCost(e);
+            warning(e);
+            event.path[1].remove();
             for (let item in cartItem){
-                if(cartItem[item].name == e.path[1].childNodes[3].textContent)
+                if(cartItem[item].name == event.path[1].childNodes[3].textContent)
                 {
                     cartItem[item].num = 0;
             }
@@ -105,8 +104,9 @@ const count = () => {
     return count;
 }
 
-const warning= () => {
-    const createTitle = `You added ${count()} items.`;
+
+const warning= (e) => {
+    const createTitle = `You added ${e.target[0].value} items.`;
     orderTitle.textContent = createTitle;
     const cartText = `SHOPPING CART [${count()}items ]`;
     cartTitle.textContent = cartText;
@@ -115,10 +115,11 @@ const warning= () => {
         cart.textContent = navCartText;
         cart.style.cursor = "pointer";
     })
+    e.target[0].value　= 1;
 }
 
-const totalCost = () =>{
-    del();
+const totalCost = (e) =>{
+    del(e);
     let totalNum = 0;
     for (let item in cartItem){
        totalNum += cartItem[item].num * cartItem[item].price;
@@ -131,9 +132,9 @@ const ordered = (e) => {
     e.preventDefault();
     cart(e);
     count();
-    del();
-    warning();
-    totalCost();
+    del(e);
+    warning(e);
+    totalCost(e);
 }
 orders.forEach(order => {
     order.addEventListener('submit', ordered);
