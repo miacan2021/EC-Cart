@@ -77,6 +77,7 @@ const cart = (e) => {
             }
         }
     }
+    e.target[0].value　= 1;
 }
 
 const del = () => {
